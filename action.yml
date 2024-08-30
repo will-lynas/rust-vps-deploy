@@ -19,6 +19,7 @@ runs:
         ssh-private-key: ${{ inputs.ssh-private-key }}
 
     - name: Upload deploy script
+      shell: bash
       run: |
         scp -o StrictHostKeyChecking=no \
           ${{ github.action_path }}/deploy.sh \
