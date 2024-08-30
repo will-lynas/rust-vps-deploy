@@ -1,0 +1,28 @@
+name: 'Rust Deploy Action'
+description: 'Deploy a Rust application to a VPS'
+inputs:
+  host:
+    description: 'VPS host'
+    required: true
+  username:
+    description: 'VPS username'
+    required: true
+  ssh-private-key:
+    description: 'SSH private key'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Deploy to VPS
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ inputs.host }}
+        username: ${{ inputs.username }}
+        key: ${{ inputs.ssh-private-key }}
+        script_stop: true
+        source: ${{ github.action_path }}/deploy.sh
+        target: /tmp
+        script: |
+          chmod +x /tmp/deploy.sh
+          /tmp/deploy.sh ${{ github.repository }}
+          rm /tmp/deploy.sh
