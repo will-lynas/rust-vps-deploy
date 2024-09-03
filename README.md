@@ -7,3 +7,7 @@ GitHub action to deploy rust web servers to my VPS
 > [!Warning]
 >
 > This currently relies on the repo name and cargo name matching
+
+> [!Warning]
+>
+> If this action is started when another version is already in progress then things will get messed up
