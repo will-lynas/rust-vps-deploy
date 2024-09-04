@@ -4,6 +4,9 @@ set -e
 GITHUB_REPOSITORY=$1
 REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)
 
+# TODO: factor out this path
+mkdir -p ~/deploy
+
 if [ -d ~/deploy/$REPO_NAME ]; then
   cd ~/deploy/$REPO_NAME
   git fetch origin
