@@ -10,6 +10,7 @@ mkdir -p ~/deploy
 if [ -d ~/deploy/$REPO_NAME ]; then
   cd ~/deploy/$REPO_NAME
   git fetch origin
+  # TODO: don't hardcode branch
   git reset --hard origin/main
 else
   git clone -b main git@github.com:$GITHUB_REPOSITORY.git ~/deploy/$REPO_NAME
