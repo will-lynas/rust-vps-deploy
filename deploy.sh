@@ -2,6 +2,7 @@
 set -e
 
 GITHUB_REPOSITORY=$1
+BRANCH_NAME=$2
 REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)
 
 # TODO: factor out this path
@@ -10,10 +11,9 @@ mkdir -p ~/deploy
 if [ -d ~/deploy/$REPO_NAME ]; then
   cd ~/deploy/$REPO_NAME
   git fetch origin
-  # TODO: don't hardcode branch
-  git reset --hard origin/main
+  git reset --hard origin/$BRANCH_NAME
 else
-  git clone -b main git@github.com:$GITHUB_REPOSITORY.git ~/deploy/$REPO_NAME
+  git clone -b $BRANCH_NAME git@github.com:$GITHUB_REPOSITORY.git ~/deploy/$REPO_NAME
   cd ~/deploy/$REPO_NAME
 fi
 

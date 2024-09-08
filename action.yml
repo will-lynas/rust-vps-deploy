@@ -10,6 +10,10 @@ inputs:
   ssh-private-key:
     description: 'SSH private key'
     required: true
+  branch-name:
+    description: 'Branch name'
+    required: false
+    default: 'main'
 runs:
   using: "composite"
   steps:
@@ -34,5 +38,5 @@ runs:
         script_stop: true
         script: |
           chmod +x /tmp/deploy.sh
-          /tmp/deploy.sh ${{ github.repository }}
+          /tmp/deploy.sh ${{ github.repository }} ${{ inputs.branch-name }}
           rm /tmp/deploy.sh
