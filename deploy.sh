@@ -17,9 +17,6 @@ else
   cd ~/deploy/$REPO_NAME
 fi
 
-# TODO: do something more proper here
-command -v npm &> /dev/null && npm ci
-
 cargo build --release
 
 cat << EOF > /tmp/$REPO_NAME.service
