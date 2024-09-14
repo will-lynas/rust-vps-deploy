@@ -17,7 +17,7 @@ else
   cd ~/deploy/$REPO_NAME
 fi
 
-# TODO: do something more proper here
+# TODO: do something more proper here and check if this is a node project
 command -v npm &> /dev/null && npm ci
 
 cargo build --release
