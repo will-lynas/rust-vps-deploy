@@ -12,12 +12,14 @@ runs:
   using: "composite"
   steps:
     - shell: bash
+      id: get-branch
       run: |
         if [[ -z "${{ github.ref_name }}" && -z "${{ inputs.branch }}" ]]; then
           exit 1
         fi
         BRANCH_NAME="${{ github.ref_name || inputs.branch }}"
         echo "Using branch: $BRANCH_NAME"
+        echo "name=$BRANCH_NAME" >> $GITHUB_OUTPUT
 
     - uses: actions/checkout@v2
 
@@ -39,5 +41,5 @@ runs:
         script_stop: true
         script: |
           chmod +x /tmp/deploy.sh
-          /tmp/deploy.sh ${{ github.repository }} $BRANCH_NAME
+          /tmp/deploy.sh ${{ github.repository }} ${{ steps.get-branch.outputs.name }}
           rm /tmp/deploy.sh
