@@ -24,6 +24,7 @@ else
 fi
 
 cargo build --release
+PACKAGE_NAME=$(cargo metadata --no-deps --format-version 1 | jq -r '.packages[0].name')
 
 cat << EOF > /tmp/$REPO_NAME.service
 [Unit]
@@ -31,7 +32,7 @@ Description=Web Server for $REPO_NAME
 After=network.target
 
 [Service]
-ExecStart=/home/$(whoami)/deploy/$REPO_NAME/target/release/$REPO_NAME
+ExecStart=/home/$(whoami)/deploy/$REPO_NAME/target/release/$PACKAGE_NAME
 Restart=on-failure
 WorkingDirectory=/home/$(whoami)/deploy/$REPO_NAME
 
