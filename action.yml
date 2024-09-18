@@ -29,6 +29,7 @@ runs:
 
     - shell: bash
       run: |
+        # TODO: factor out this path
         scp -o StrictHostKeyChecking=no \
           ${{ github.action_path }}/deploy.sh \
           ${{ inputs.username }}@${{ inputs.host }}:/tmp/${{ github.repository_id }}-deploy.sh
