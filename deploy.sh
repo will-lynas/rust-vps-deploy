@@ -17,8 +17,11 @@ else
   cd ~/deploy/$REPO_NAME
 fi
 
-# TODO: do something more proper here and check if this is a node project
-command -v npm &> /dev/null && npm ci
+if [ -f package.json ]; then
+  npm ci
+else
+  echo "No package.json found. Skipping npm ci."
+fi
 
 cargo build --release
 
