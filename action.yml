@@ -31,7 +31,7 @@ runs:
       run: |
         scp -o StrictHostKeyChecking=no \
           ${{ github.action_path }}/deploy.sh \
-          ${{ inputs.username }}@${{ inputs.host }}:/tmp/deploy.sh
+          ${{ inputs.username }}@${{ inputs.host }}:/tmp/${{ github.repository }}-deploy.sh
 
     - uses: appleboy/ssh-action@master
       with:
@@ -40,6 +40,6 @@ runs:
         key: ${{ inputs.ssh-private-key }}
         script_stop: true
         script: |
-          chmod +x /tmp/deploy.sh
-          /tmp/deploy.sh ${{ github.repository }} ${{ steps.get-branch.outputs.name }}
-          rm /tmp/deploy.sh
+          chmod +x /tmp/${{ github.repository }}-deploy.sh
+          /tmp/${{ github.repository }}-deploy.sh ${{ github.repository }} ${{ steps.get-branch.outputs.name }}
+          rm /tmp/${{ github.repository }}-deploy.sh
