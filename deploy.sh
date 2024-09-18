@@ -26,6 +26,7 @@ fi
 cargo build --release
 PACKAGE_NAME=$(cargo metadata --no-deps --format-version 1 | jq -r '.packages[0].name')
 
+# TODO: change user to something like www-data
 cat << EOF > /tmp/$REPO_NAME.service
 [Unit]
 Description=Web Server for $REPO_NAME
@@ -35,6 +36,7 @@ After=network.target
 ExecStart=/home/$(whoami)/deploy/$REPO_NAME/target/release/$PACKAGE_NAME
 Restart=on-failure
 WorkingDirectory=/home/$(whoami)/deploy/$REPO_NAME
+User=$(whoami)
 
 [Install]
 WantedBy=multi-user.target
