@@ -17,6 +17,7 @@ runs:
           exit 1
         fi
         BRANCH_NAME="${{ github.ref_name || inputs.branch }}"
+        echo "Using branch: $BRANCH_NAME"
 
     - uses: actions/checkout@v2
 
