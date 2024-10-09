@@ -23,7 +23,9 @@ else
   echo "No package.json found. Skipping npm ci."
 fi
 
+echo "Installing just"
 cargo install just
+echo "Running 'just deploy'"
 just deploy
 
 PACKAGE_NAME=$(cargo metadata --no-deps --format-version 1 | jq -r '.packages[0].name')
@@ -46,6 +48,7 @@ EOF
 
 sudo mv /tmp/$REPO_NAME.service /etc/systemd/system/
 
+echo "Restarting service"
 sudo systemctl daemon-reload
 sudo systemctl enable $REPO_NAME.service
 sudo systemctl restart $REPO_NAME.service
