@@ -23,7 +23,9 @@ else
   echo "No package.json found. Skipping npm ci."
 fi
 
-cargo build --release
+cargo install just
+just deploy
+
 PACKAGE_NAME=$(cargo metadata --no-deps --format-version 1 | jq -r '.packages[0].name')
 
 # TODO: change user to something like www-data
